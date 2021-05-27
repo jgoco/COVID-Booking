@@ -15,8 +15,9 @@ COVID-vaccination status, but this idea can be scaled to screen patrons for othe
 hospital-workers, teachers, etc.).
 
 ### What will it do?
-The COVID-Booking application will allow patrons to easily book group classes at a recreation centre, while feeling
-assured that they are booking a recreational class where other members of the class are also vaccinated.
+**The COVID-Booking application is a booking application with COVID-vaccination screening capabilities**. It will allow
+patrons to easily book group classes at a recreation centre, while feeling assured that they are booking a recreational
+class where other members of the class are also vaccinated.
 
 ### What type of data will it store?
 The COVID-Booking application will store information about the patrons (e.g. name, birthday, email, COVID-vaccination
@@ -90,6 +91,6 @@ application to be used as a COVID-Passport application as well. A rating system 
 3. Create a COVID-Passport application
     - Create a third user (government)
 
-### Mock-ups
+## Mock-ups
 
 ![image](./mockups/mockup1.png)
