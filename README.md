@@ -21,13 +21,13 @@ class where other members of the class are also vaccinated.
 
 ### What type of data will it store?
 The COVID-Booking application will store information about the patrons (e.g. name, birthday, email, COVID-vaccination
-status, etc.), the recreation centres (e.g. name, location, ultilities, etc.), and data about classes offered (e.g.
+status, etc.), the recreation centres (e.g. name, location, utilities, etc.), and data about classes offered (e.g.
 times, types, occupancy, etc.). If time permits, it may also store correspondence between the recreation centre and
 patrons.
 
 ### What will users be able to do with this data?
 Recreation centres will be able to use this data to see if their patrons meet any prerequisites (i.e. COVID-vaccinated)
-for booking. Recreation centres will also be able to use this information to contact thier patrons. Patrongs will be
+for booking. Recreation centres will also be able to use this information to contact their patrons. Patrons will be
 able to view classes that recreation centres are offering and will be able to view the type (description) and time of
 their bookings.
 
@@ -47,7 +47,7 @@ application to be used as a COVID-Passport application as well. A rating system 
         - Set minimum and maximum number of participants per class
         - Set price of class
         - Set location (room) of class
-        - Set intructor
+        - Set instructor
         - Set items to bring/required equipment
         - Add description
     - Edit a class
@@ -59,7 +59,7 @@ application to be used as a COVID-Passport application as well. A rating system 
     - Book a class
         - See booking information
     - View all booking(s)
-    - Cancel a bookng
+    - Cancel a booking
 3. Screen patrons for COVID-vaccination status before allowing them to book a class
     - Create a patron's information page
         - Set a COVID-vaccination status
@@ -75,19 +75,19 @@ application to be used as a COVID-Passport application as well. A rating system 
     - Red = fully booked
 3. Highlight today's date
 4. Ordered list of most popular to least popular classes (based on bookings)
-5. Allow patrons to see their past classes
 6. Filter and display classes by category
-
-### Stretch Requirements:
-
-1. Allow patrons to rate their past classes
-2. Create a login with passwords and usernames
+7. Create a login with passwords and usernames
     - Log in
     - Log out
     - Forgot password
     - Create account
     - Edit account
     - Delete account
+
+### Stretch Requirements:
+
+1. Allow patrons to see their past classes
+2. Allow patrons to rate their past classes
 3. Create a COVID-Passport application
     - Create a third user (government)
 
