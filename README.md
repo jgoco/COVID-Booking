@@ -44,12 +44,10 @@ application to be used as a COVID-Passport application as well. A rating system 
         - Name the class
         - Set duration of class
         - Set time and date of class
-        - Set minimum and maximum number of participants per class
-        - Set price of class
+        - Set maximum number of participants per class
         - Set location (room) of class
         - Set instructor
-        - Set items to bring/required equipment
-        - Add description
+        - Add description (price, materials, etc.)
     - Edit a class
     - Delete a class
 2. Patron functions:
@@ -93,4 +91,12 @@ application to be used as a COVID-Passport application as well. A rating system 
 
 ## Mock-ups
 
+### Version 1
 ![image](./mockups/mockup1.png)
+
+### Version 2
+![image](./mockups/mockup2.jpg)
+
+## Component Structure
+
+![image](./mockups/components.jpg)
