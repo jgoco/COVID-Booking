@@ -115,9 +115,7 @@ function Calendar() {
                     showCloseButton
                     showOpenButton
                 />
-                <AppointmentForm
-                    readOnly
-                />
+                <AppointmentForm />
             </Scheduler>
         </Paper>
     );
