@@ -1,5 +1,6 @@
 import './NavBar.css';
-import Menu from './Menu.js';
+import MenuDrawer from './menu/MenuDrawer.js';
+import LoginDrawer from './login/LoginDrawer.js';
 /*
     NavBar component adapted from: https://material-ui.com/components/app-bar/
                                    https://material.io/components/app-bars-top/web
@@ -29,9 +30,6 @@ function NavBar() {
         },
         title: {
             flexGrow: 1,
-        },
-        list: {
-            width: 250,
         }
     }));
 
@@ -42,11 +40,11 @@ function NavBar() {
             <div className={styles.root}>
                 <AppBar position="static">
                     <Toolbar>
-                        <Menu />
+                        <MenuDrawer />
                         <Typography variant="h6" className={styles.title}>
-                            Your Calendar
+                            Rec Center Schedule
                         </Typography>
-                        <Button color="inherit">Login</Button>
+                        <LoginDrawer />
                     </Toolbar>
                 </AppBar>
             </div>
