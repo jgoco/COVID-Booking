@@ -9,7 +9,7 @@ var logger = require('morgan');
 var cors = require('cors');
 
 // Gives access to env variable
-require('dotenv').config();
+// require('dotenv').config();
 
 var app = express();
 
@@ -25,18 +25,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/rec-center', recRouter);
-
 /* ----------- SESSION SETUP ----------- */ 
 
 // TODO: Some DB init for storage of sessions needs to be done (Post Workshop 4)
 
 app.use(session({
-    secret: process.env.SECRET,
+    // secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
-    store: sessionStorage,
+    // store: sessionStorage,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7    // Cookies expire after 1 wks
     }
@@ -44,11 +41,17 @@ app.use(session({
 
 /* ----------- PASSPORT AUTHENICATION ----------- */ 
 require('./config/passport');
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 /* ----------- ROUTES ----------- */ 
 var indexRouter = require('./routes/index');
 var recRouter = require('./routes/rec-center');
+var loginRouter = require('./routes/login');
+
+app.use('/', indexRouter);
+app.use('/rec-center', recRouter);
 
 /* ----------- ERROR HANDLING ----------- */ 
 // catch 404 and forward to error handler
