@@ -95,7 +95,7 @@ application to be used as a COVID-Passport application as well. A rating system 
 ![image](./mockups/mockup1.png)
 
 ### Version 2
-![image](./mockups/mockup2.jpg)
+![image](./mockups/mockup2.JPG)
 
 ## Component Structure
 
