@@ -7,6 +7,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+var mongoose = require('mongoose');
 
 // Gives access to env variable
 // require('dotenv').config();
@@ -27,7 +28,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 /* ----------- SESSION SETUP ----------- */ 
 
-// TODO: Some DB init for storage of sessions needs to be done (Post Workshop 4)
+/* ----------- DATABASE CONNECTION ----------- */
+mongoose.connect('mongodb+srv://m001-student:' + process.env.MONGO_ATLAS_PW + '@sandbox.aekav.mongodb.net/covidbooking?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 app.use(session({
     // secret: process.env.SECRET,
