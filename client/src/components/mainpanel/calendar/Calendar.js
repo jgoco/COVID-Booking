@@ -237,18 +237,6 @@ function Calendar() {
         return <AppointmentForm.BooleanEditor {...props} readOnly />;
     }
 
-    const DateEditor = ({ excludeTime, ...restProps }) => {
-        const dateFormat = excludeTime ? "MM/DD/YYYY" : "MM/DD/YYYY hh:mm A";
-
-        return (
-            <AppointmentForm.DateEditor
-                {...restProps}
-                excludeTime={excludeTime}
-                format={dateFormat}
-            />
-        );
-    };
-
     return (
         <Paper id='calendar'>
             <Scheduler
@@ -281,7 +269,6 @@ function Calendar() {
                     basicLayoutComponent={BasicLayout}
                     booleanEditorComponent={BoolEditor}
                     messages={messages}
-                    dateEditorComponent={DateEditor}
                 />
             </Scheduler>
         </Paper>
