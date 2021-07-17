@@ -8,9 +8,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var mongoose = require('mongoose');
+const connnection = require('../server/config/database')
 
 // Gives access to env variable
-// require('dotenv').config();
+require('dotenv').config();
 
 var app = express();
 
@@ -38,25 +39,26 @@ app.use(session({
     saveUninitialized: true,
     // store: sessionStorage,
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24 * 7    // Cookies expire after 1 wks
+      maxAge: 1000 * 60 * 60 * 24 * 7    // Cookies expire after 1 wk
     }
 }));
 
  */
 
 /* ----------- PASSPORT AUTHENICATION ----------- */ 
-//require('./config/passport');
-//app.use(passport.initialize());
-//app.use(passport.session());
+require('./config/passport');
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 /* ----------- ROUTES ----------- */ 
 var indexRouter = require('./routes/index');
 var recRouter = require('./routes/rec-center');
-//var loginRouter = require('./routes/login');
+var loginRouter = require('./routes/login');
 
 app.use('/', indexRouter);
 app.use('/rec-center', recRouter);
+app.use('/login', loginRouter);
 
 /* ----------- ERROR HANDLING ----------- */ 
 // catch 404 and forward to error handler
