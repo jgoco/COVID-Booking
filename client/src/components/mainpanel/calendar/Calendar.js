@@ -4,7 +4,11 @@
 
 import '../MainPanel.css';
 import Paper from '@material-ui/core/Paper';
-import { ViewState } from '@devexpress/dx-react-scheduler';
+import {
+    ViewState,
+    EditingState,
+    IntegratedEditing
+} from '@devexpress/dx-react-scheduler';
 import {
     Scheduler,
     WeekView,
@@ -13,14 +17,94 @@ import {
     AppointmentForm,
     DateNavigator,
     TodayButton,
-    Toolbar
+    Toolbar,
+    ConfirmationDialog
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { makeStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import classes from './rec-center-classes';
+
+import {useState, useEffect} from "react";
+import moment from "moment";
+
+
+
 
 function Calendar() {
 
+    /* ----------- SERVER FUNCTIONS ----------- */
+    let startingList = [];
+    const [list, setList] = useState(startingList);
+
+    async function callGET() {
+        await fetch("http://localhost:8000/rec-center")
+            .then(res => res.json())
+            .then(data => startingList = data)
+            .catch(err => err);
+    }
+
+    async function callPOST(object) {
+        await fetch('http://localhost:8000/rec-center', {
+            method: 'post',
+            body: JSON.stringify(object),
+            headers: {'Content-Type': 'application/json'}
+        }).then(data => console.log('Added appointment'))
+            .catch(err => err);
+    }
+
+    async function callEDIT(object) {
+        let id = Object.keys(object)[0];
+        console.log(object[id])
+        await fetch('http://localhost:8000/rec-center/' + id, {
+            method: 'PATCH',
+            body: JSON.stringify(object[id]),
+            headers: {
+                'Content-Type': 'application/json',
+                'x-Trigger': 'CORS'
+            }
+        }).then(data => console.log('Edited card'))
+            .catch(err => err);
+    }
+
+    async function callDELETE(id) {
+        await fetch('http://localhost:8000/rec-center/' + id, {
+            method: 'delete',
+        }).then(data => console.log('Deleted appointment'))
+            .catch(err => err);
+    }
+
+    useEffect(() =>{
+        callGET()
+            .then(() => setList(startingList))
+            .catch((err) => err);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    function commitChanges({added, changed, deleted}) {
+        if (added) {
+            console.log('added chosen');
+            callPOST(added).then(() => console.log(added));
+            callGET().then((data) => console.log(data))
+                .then(() => setList(startingList));
+        }
+        if (changed) {
+            console.log('in edit')
+            console.log(changed);
+            callEDIT(changed).then(() => console.log(changed));
+            callGET().then((data) => console.log(data))
+                .then(() => setList(startingList))
+                .then(() => console.log(startingList));
+        }
+        if (deleted !== undefined) {
+            console.log('in delete');
+            console.log(deleted);
+            callDELETE(deleted).then(() => console.log(deleted));
+            callGET().then((data) => console.log(data))
+                .then(() => setList(startingList))
+                .then(() => console.log(startingList));
+        }
+    }
+
+    /* ----------- STYLE AND COMPONENTS ----------- */
     const useStyles = makeStyles(theme => ({
         // DayScaleCell styling
         today: {
@@ -87,24 +171,102 @@ function Calendar() {
         } return <WeekView.TimeTableCell {...props} />;
     };
 
+    // create the appointments
     const Appointment = ({children, style, ...restProps}) => (
         <Appointments.Appointment {...restProps} className={useStyles().todayApp} >
             {children}
         </Appointments.Appointment>
     );
 
+    // create the add/edit form
+    const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
+        const onEditLocation = (nextValue) => {
+            onFieldChange({ location: nextValue });
+        };
+
+        const onEditClassSize = (nextValue) => {
+            onFieldChange({ maxClassSize: nextValue });
+        }
+
+        // TODO: get button working
+        const onEditVaccination = (nextValue) => {
+            onFieldChange({ vaccinationOnly: nextValue });
+        }
+
+        return (
+            <AppointmentForm.BasicLayout
+                appointmentData={appointmentData}
+                onFieldChange={onFieldChange}
+                {...restProps}
+            >
+                <AppointmentForm.Label
+                    text="Location"
+                    type="title"
+                />
+                <AppointmentForm.TextEditor
+                    placeholder="Room location"
+                    type="ordinaryTextEditor"
+                    value={appointmentData.location}
+                    onValueChange={onEditLocation}
+                />
+                <AppointmentForm.Label
+                    text="Maximum Class Size"
+                    type="title"
+                />
+                <AppointmentForm.TextEditor
+                    placeholder="0"
+                    type="numberEditor"
+                    value={appointmentData.maxClassSize}
+                    onValueChange={onEditClassSize}
+                />
+                <AppointmentForm.BooleanEditor
+                    label="Vaccinated attendents only?"
+                    readOnly={false}
+                    value={appointmentData.vaccinatedOnly}
+                    onValueChange={onEditVaccination}
+                />
+            </AppointmentForm.BasicLayout>
+        );
+    };
+
+    const messages = {
+        moreInformationLabel: 'Class Description',
+    };
+
+    const BoolEditor = (props) => {
+        return <AppointmentForm.BooleanEditor {...props} readOnly />;
+    }
+
+    const DateEditor = ({ excludeTime, ...restProps }) => {
+        const dateFormat = excludeTime ? "MM/DD/YYYY" : "MM/DD/YYYY hh:mm A";
+
+        return (
+            <AppointmentForm.DateEditor
+                {...restProps}
+                excludeTime={excludeTime}
+                format={dateFormat}
+            />
+        );
+    };
+
     return (
         <Paper id='calendar'>
             <Scheduler
-                data={classes}
+                data={list}
+                locale={"en-US"}
             >
                 <ViewState />
+                <EditingState
+                    onCommitChanges={commitChanges}
+                />
+                <IntegratedEditing />
                 <WeekView
                     startDayHour={9}
                     endDayHour={19}
                     timeTableCellComponent={TimeTableCell}
                     dayScaleCellComponent={DayScaleCell}
                 />
+                <ConfirmationDialog />
                 <Toolbar />
                 <DateNavigator />
                 <TodayButton />
@@ -115,7 +277,12 @@ function Calendar() {
                     showCloseButton
                     showOpenButton
                 />
-                <AppointmentForm />
+                <AppointmentForm
+                    basicLayoutComponent={BasicLayout}
+                    booleanEditorComponent={BoolEditor}
+                    messages={messages}
+                    dateEditorComponent={DateEditor}
+                />
             </Scheduler>
         </Paper>
     );

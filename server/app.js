@@ -29,9 +29,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 /* ----------- SESSION SETUP ----------- */ 
 
 /* ----------- DATABASE CONNECTION ----------- */
-mongoose.connect('mongodb+srv://m001-student:' + process.env.MONGO_ATLAS_PW + '@sandbox.aekav.mongodb.net/covidbooking?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://m001-student:m001-mongodb-basics@sandbox.aekav.mongodb.net/covidbooking?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 
-
+/*
 app.use(session({
     // secret: process.env.SECRET,
     resave: false,
@@ -42,16 +42,18 @@ app.use(session({
     }
 }));
 
+ */
+
 /* ----------- PASSPORT AUTHENICATION ----------- */ 
-require('./config/passport');
-app.use(passport.initialize());
-app.use(passport.session());
+//require('./config/passport');
+//app.use(passport.initialize());
+//app.use(passport.session());
 
 
 /* ----------- ROUTES ----------- */ 
 var indexRouter = require('./routes/index');
 var recRouter = require('./routes/rec-center');
-var loginRouter = require('./routes/login');
+//var loginRouter = require('./routes/login');
 
 app.use('/', indexRouter);
 app.use('/rec-center', recRouter);
