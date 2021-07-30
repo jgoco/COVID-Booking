@@ -6,6 +6,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import { BrowserRouter, BrowserRouter as Router, Link as RouterLink } from "react-router-dom";
 
 function MenuOptions() {
 
@@ -23,17 +24,17 @@ function MenuOptions() {
     return (
         <div className={styles.list} role='presentation'>
             <List>
-                <ListItem button key='home'>
+                <ListItem button key='home' component={RouterLink} to="/">
                     <ListItemIcon> <InboxIcon /> </ListItemIcon>
-                    <ListItemText primary='Home' />
+                    <ListItemText primary='Home'/>
                 </ListItem>
-                <ListItem button key='profile'>
+                <ListItem button key='profile' component={RouterLink} to="/profile">
                     <ListItemIcon> <MailIcon /> </ListItemIcon>
-                    <ListItemText primary='Profile' />
+                    <ListItemText primary='Profile'/>
                 </ListItem>
-                <ListItem button key='settings'>
+                <ListItem button key='settings' component={RouterLink} to="/settings">
                     <ListItemIcon> <InboxIcon /> </ListItemIcon>
-                    <ListItemText primary='Settings' />
+                    <ListItemText primary='Settings'/>
                 </ListItem>
             </List>
         </div>

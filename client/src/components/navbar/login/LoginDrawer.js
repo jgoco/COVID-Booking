@@ -5,7 +5,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-
+import { BrowserRouter, BrowserRouter as Router, Link as RouterLink } from "react-router-dom";
 import {useState} from "react";
 
 /*
@@ -37,9 +37,9 @@ function LoginDrawer() {
 
     return (
         <div>
-            <Button color="inherit" onClick={toggleDrawer(true)}>Login</Button>
+            <Button color="inherit" onClick={toggleDrawer(true)} component={RouterLink} to="/login">Login</Button>
             <Drawer anchor='right' open={isVisible} onClose={toggleDrawer(false)}>
-                <LoginPage />
+                    <LoginPage />
             </Drawer>
         </div>
     );

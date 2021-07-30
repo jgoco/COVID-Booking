@@ -36,7 +36,7 @@ router.post('/register', (req, res, next) => {
 
 // Login Success route (Temporary)
 router.get('/login-success', (req, res, next) => {
-    res.send('<h1> YOu successfully logged in. </h1>');
+    res.send('<h1> You successfully logged in. </h1>');
 });
 
 module.exports = router;
