@@ -8,7 +8,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var mongoose = require('mongoose');
-const connnection = require('./server/config/database')
+const connnection = require('./config/database')
 
 // Gives access to env variable
 require('dotenv').config();
