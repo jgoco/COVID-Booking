@@ -2,7 +2,7 @@ var express = require('express');
 const passport = require('passport');
 const validatePassword = require('../lib/passwordUtils').validatePassword;
 const generatePassword = require('../lib/passwordUtils').generatePassword;
-const User = require('../models/user');
+const User = require('../models/userModel');
 const connection = require('../config/database');
 var router = express.Router();
 

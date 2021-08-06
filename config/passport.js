@@ -2,7 +2,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const validatePassword = require('../lib/passwordUtils').validatePassword
 const connection = require('../config/database');
-const User = require('../models/user');
+const User = require('../models/userModel');
 
 // Modified from PassportJS documentation on verifyCallback: http://www.passportjs.org/docs/username-password/ 
 const verifyCallback = (username, password, callback) => {

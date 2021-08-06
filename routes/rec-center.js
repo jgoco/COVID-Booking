@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 
-const Appointment = require('../models/appointment');
+const Appointment = require('../models/appointmentModel');
 
 /* GET list of appointments. */
 router.get('/', function(req, res, next) {
