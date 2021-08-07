@@ -7,12 +7,11 @@ var logger = require('morgan');
 var cors = require('cors');
 var mongoose = require('mongoose');
 var dotenv = require('dotenv');
-// const connnection = require('./config/database')
 
 /* ----------- ROUTES ----------- */ 
 var indexRouter = require('./routes/index');
 var recRouter = require('./routes/rec-center');
-var userAuthenicationRoute = require('./routes/userAuthentication');
+var userAuthenicationRoute = require('./routes/userAuthenticationRoute');
 
 // Gives access to env variables
 dotenv.config();

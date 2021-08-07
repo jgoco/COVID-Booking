@@ -5,8 +5,7 @@ const registrationValidation = (formData) => {
         firstName: joi.string().required(),
         lastName: joi.string().required(),
         email: joi.string().min(6).max(1024).required().email(),
-        password: joi.string().min(6).max(1024).required(),
-        registeredDate: joi.string()
+        password: joi.string().min(6).max(1024).required()
     });
     return registrationSchema.validate(formData);
 };

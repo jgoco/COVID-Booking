@@ -1,9 +1,7 @@
-const router = require('express').Router();
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jsonwebtoken = require('jsonwebtoken');
 const {registrationValidation, loginValidation} = require('../inputValidation');
-// const { user } = require('../config/database');
 
 function getVaccinationStatus(vaccines) {
     if (vaccines.firstDose && vaccines.secondDose) {
@@ -13,7 +11,7 @@ function getVaccinationStatus(vaccines) {
     }
 }
 
-router.post('/login', async (req, res, next) => {
+async function loginUser(req, res, next) {
     let {error} = loginValidation(req.body);
     if (error) {
         console.log(error);
@@ -34,9 +32,9 @@ router.post('/login', async (req, res, next) => {
     // Web token - stored in the header
     let token = jsonwebtoken.sign({_id: userExists._id}, process.env.JWT_SECRET);
     res.header('Authentication-Token', token).send(token);
-});
+} 
 
-router.post('/register', async (req, res, next) => {
+async function registerUser(req, res, next) {
     // We only care about validating these form fields
     const validatedFormData = {
         firstName: req.body.firstName,
@@ -79,6 +77,7 @@ router.post('/register', async (req, res, next) => {
             console.log(error);
             res.status(400).send(error);
         });
-});
+}
 
-module.exports = router;
+module.exports.loginUser = loginUser;
+module.exports.registerUser = registerUser;
