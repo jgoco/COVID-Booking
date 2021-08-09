@@ -1,5 +1,8 @@
 const joi = require('@hapi/joi');
 
+/* These functions below are used to verify user input to ensure
+ * conform to the requirements outlined 
+ */ 
 const registrationValidation = (formData) => {
     const registrationSchema = joi.object({
         firstName: joi.string().required(),

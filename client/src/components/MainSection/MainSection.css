@@ -1,0 +1,16 @@
+.home__main-section {
+    color: #fff;
+    padding: 160px 0;
+}
+
+.dark-background {
+    background-color: #1c2237;
+}
+
+@media screen and (max-width: 991px) {
+    .container {
+      padding-right: 30px;
+      padding-left: 30px;
+    }
+}
+

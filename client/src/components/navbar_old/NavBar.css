@@ -1,0 +1,5 @@
+#navbar {
+    display: flex;
+    position: fixed;
+    width: 98.5%;
+}

@@ -1,55 +1,73 @@
-import './NavBar.css';
-import MenuDrawer from './menu/MenuDrawer.js';
-import LoginDrawer from './login/LoginDrawer.js';
-/*
-    NavBar component adapted from: https://material-ui.com/components/app-bar/
-                                   https://material.io/components/app-bars-top/web
- */
-
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import React, {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
+import EventIcon from '@material-ui/icons/Event';
 import MenuIcon from '@material-ui/icons/Menu';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import MenuOpenIcon from '@material-ui/icons/MenuOpen';
+import {Button} from '../Button/Button';
+import './NavBar.css';      // Modified from: https://github.com/briancodex/react-website-v2/blob/master/src/components/Navbar.css
 
 function NavBar() {
+  const [clicked, setClicked] = useState(false);
+  const [loginButton, setLoginButton] = useState(true);
 
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            flexGrow: 1,
-        },
-        title: {
-            flexGrow: 1,
-        }
-    }));
+  const handleClick = () => setClicked(!clicked);
+  const closeMobileMenu = () => setClicked(false);
 
-    const styles = useStyles();
+  const showLoginButton = () => {
+    if(window.innerWidth <= 960) {
+      setLoginButton(false);
+    } else {
+      setLoginButton(true);
+    }
+  }
 
-    return (
-        <div id='navbar'>
-            <div className={styles.root}>
-                <AppBar position="static">
-                    <Toolbar>
-                        <MenuDrawer />
-                        <Typography variant="h6" className={styles.title}>
-                            Rec Center Schedule
-                        </Typography>
-                        <LoginDrawer />
-                    </Toolbar>
-                </AppBar>
-            </div>
+  useEffect(() => {
+    showLoginButton();
+  }, []); 
+
+  window.addEventListener('resize', showLoginButton);
+
+  return (
+    <>
+      <div className="navbar">
+        <div className="navbar-container container">
+          <Link to='/' className="navbar-logo" onClick={closeMobileMenu}>
+            <EventIcon className="navbar-icon"> </EventIcon>
+            COVID BOOKING
+          </Link>
+          <div className="menu-icon" onClick={handleClick}>
+            {
+              clicked ? <MenuOpenIcon /> : <MenuIcon />
+            }
+          </div>
+          <ul className={clicked ? 'nav-menu active': 'nav-menu'}>
+            <li className="nav-item">
+              <Link to='/' className="nav-links" onClick={closeMobileMenu}>
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to='/about' className="nav-links" onClick={closeMobileMenu}>
+                About
+              </Link>
+            </li>
+            <li className="nav-login-btn">
+              {
+                loginButton ? (
+                  <Link to='user/login' className="login-btn-link">
+                    <Button buttonStyle='btn--outline'> Login </Button>
+                  </Link>) : (
+                    <Link to='user/login' className="login-btn-link" onClick={closeMobileMenu}>
+                      <Button buttonStyle="btn--outline" buttonSize='btn--mobile'> Login </Button>
+                    </Link>
+                  )
+              }
+            </li>
+          </ul>
         </div>
-    );
+      </div>
+    </>
+  );
 }
 
 export default NavBar;
