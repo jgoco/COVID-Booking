@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import EventIcon from '@material-ui/icons/Event';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuOpenIcon from '@material-ui/icons/MenuOpen';
@@ -54,11 +54,23 @@ function NavBar() {
             <li className="nav-login-btn">
               {
                 loginButton ? (
-                  <Link to='user/login' className="login-btn-link">
-                    <Button buttonStyle='btn--outline'> Login </Button>
+                  <Link to='/centre/login' className="login-btn-link">
+                    <Button buttonStyle='btn--outline'> Centre Login </Button>
                   </Link>) : (
-                    <Link to='user/login' className="login-btn-link" onClick={closeMobileMenu}>
-                      <Button buttonStyle="btn--outline" buttonSize='btn--mobile'> Login </Button>
+                    <Link to='/centre/login' className="login-btn-link" onClick={closeMobileMenu}>
+                      <Button buttonStyle="btn--outline" buttonSize='btn--mobile'> Centre Login </Button>
+                    </Link>
+                  )
+              }
+            </li>
+            <li className="nav-login-btn">
+              {
+                loginButton ? (
+                  <Link to='/user/login' className="login-btn-link">
+                    <Button buttonStyle='btn--outline'> User Login </Button>
+                  </Link>) : (
+                    <Link to='/user/login' className="login-btn-link" onClick={closeMobileMenu}>
+                      <Button buttonStyle="btn--outline" buttonSize='btn--mobile'> User Login </Button>
                     </Link>
                   )
               }
