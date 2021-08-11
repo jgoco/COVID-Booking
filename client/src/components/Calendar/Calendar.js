@@ -1,8 +1,6 @@
 /*
     Calendar component adapted from: https://devexpress.github.io/devextreme-reactive/react/scheduler/
  */
-
-import '../MainPanel.css';
 import Paper from '@material-ui/core/Paper';
 import {
     ViewState,
@@ -25,7 +23,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 
 import {useState, useEffect} from "react";
 import moment from "moment";
-
+import './Calendar.css'
 
 
 

@@ -3,8 +3,8 @@ const bcrypt = require('bcryptjs');
 const jsonwebtoken = require('jsonwebtoken');
 const {registrationValidation, loginValidation} = require('../inputValidation');
 
-function getVaccinationStatus(vaccines) {
-    if (vaccines.firstDose && vaccines.secondDose) {
+function getVaccinationStatus(firstDose, secondDose) {
+    if (firstDose && secondDose) {
         return true;
     } else {
         return false;
@@ -63,9 +63,9 @@ async function registerUser(req, res, next) {
         lastName: req.body.lastName,
         email: req.body.email,
         password: maskedPassword,
-        registeredDate: new Date(req.body.registeredDate),
-        vaccines: req.body.vaccines,
-        fullyVaccinated: getVaccinationStatus(req.body.vaccines)      // TODO: Debug this method still
+        firstDose: req.body.firstDose,
+        secondDose: req.body.secondDose,
+        fullyVaccinated: (req.body.firstDose && req.body.secondDose)      // TODO: Debug this method still
     });
 
     user.save()

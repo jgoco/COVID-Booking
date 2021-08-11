@@ -1,7 +1,7 @@
 import React from 'react'
 import FormRegister from '../../Form/FormRegister'
 
-function RegisterPage() {
+function UserRegisterPage() {
     return (
         <>
             <FormRegister />
@@ -9,5 +9,5 @@ function RegisterPage() {
     )
 }
 
-export default RegisterPage
+export default UserRegisterPage
 

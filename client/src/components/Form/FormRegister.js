@@ -1,7 +1,6 @@
 /*
     FormRegister component adapted from: https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-up
  */
-
 import React, {useState} from 'react'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -18,7 +17,10 @@ import 'date-fns';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {  MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import { useForm } from 'react-hook-form';    // Custom hook for using forms
+import { useForm, Controller } from 'react-hook-form';    // 3rd party library for handling forms
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import {registerUser} from '../../actions/Authenticate'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -40,19 +42,49 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(3, 0, 2),
     },
   }));
+
+  // Form validation Schema
+  const validationSchema = Yup.object().shape(
+    {
+      firstName: Yup.string().required('First name is required'),
+      lastName: Yup.string().required('Last name is required'),
+      email: Yup.string().required('Email is required')
+                         .email('Email is invalid'),
+      password: Yup.string().required('Password is required')
+                            .min(6, 'Password must be at least 6 characters in length')
+                            .max(50, 'Password must not exceed 50 characters in length'),
+      firstDose: Yup.date().notRequired(),
+      secondDose: Yup.date().notRequired()
+    }
+  );
+
   
   export default function SignUp() {
     const classes = useStyles();
-    const {register, handleSubmit, errors} = useForm();
+    // Hook for authentication
+
+    // From react-hook-form library
+    const { handleSubmit, control, setValue } = useForm({resolver: yupResolver(validationSchema)});
+
+    const onSubmit = data => {
+      alert(JSON.stringify(data));    // Remove this later
+      // Call method that sends data to the BE
+      registerUser(data);       // Do some error handling -- What if the response code isn't 200
+
+    };
+
+    
     const [selectedFirstDoseDate, setSelectedFirstDoseDate] = useState(null);
     const [selectedSecondDoseDate, setSelectedSecondDoseDate] = useState(null);
 
     const handleFirstDoseDateChange = (date) => {
       setSelectedFirstDoseDate(date);
+      setValue('firstDose', date, {shouldValidate: true, shouldDirty: true})
     };
 
     const handleSecondDoseDateChange = (date) => {
       setSelectedSecondDoseDate(date);
+      setValue('secondDose', date, {shouldValidate: true, shouldDirty: true})
     };
 
     return (
@@ -65,52 +97,96 @@ const useStyles = makeStyles((theme) => ({
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <form className={classes.form} noValidate>
+          <form onSubmit={handleSubmit(onSubmit)} className={classes.form} noValidate >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="fname"
+                <Controller 
+                  control={control}
                   name="firstName"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
+                  defaultValue=""
+                  render={({ field, fieldState: { error } }) => (
+                    <TextField
+                      {...field}
+                      autoComplete="fname"
+                      name="firstName"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="firstName"
+                      label="First Name"
+                      autoFocus
+                      error={!!error}
+                      helperText={error ? error.message : null}
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
+                 <Controller 
+                  control={control}
                   name="lastName"
-                  autoComplete="lname"
+                  defaultValue=""
+                  render={({ field, fieldState: { error } }) => (
+                    <TextField
+                      {...field}
+                      autoComplete="lname"
+                      name="lastName"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="lastName"
+                      label="Last Name"
+                      autoFocus
+                      error={!!error}
+                      helperText={error ? error.message : null}
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
+                <Controller 
+                  control={control}
                   name="email"
-                  autoComplete="email"
+                  defaultValue=""
+                  render={({ field, fieldState: { error } }) => (
+                    <TextField
+                      {...field}
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      autoComplete="email"
+                      autoFocus
+                      error={!!error}
+                      helperText={error ? error.message : null}
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
+                <Controller 
+                  control={control}
                   name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
+                  defaultValue=""
+                  render={({ field, fieldState: { error } }) => (
+                    <TextField
+                      {...field}
+                      autoComplete="current-password"
+                      name="password"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="password"
+                      type="password"
+                      label="Password"
+                      autoFocus
+                      error={!!error}
+                      helperText={error ? error.message : null}
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -164,7 +240,7 @@ const useStyles = makeStyles((theme) => ({
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                <Link href="/login" variant="body2">
+                <Link href="/user/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

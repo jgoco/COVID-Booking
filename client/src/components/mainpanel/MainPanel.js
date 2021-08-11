@@ -1,6 +1,5 @@
 import './MainPanel.css';
-import Calendar from './calendar/Calendar';
-import RHSPanel from './rhspanel/RHSPanel';
+import Calendar from '../Calendar/Calendar';
 
 /*function MainPanel() {
     return (

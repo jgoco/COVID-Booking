@@ -22,19 +22,13 @@ const userSchema = new Schema({
         min: 6,
         max: 1024
     }, 
-    registeredDate: {
+    firstDose: {
         type: Date,
-        default: Date.now
+        default: null      
     },
-    vaccines : {
-        firstDose: {
-            type: Date,
-            default: null      
-        },
-        secondDose: {
-            type: Date, 
-            default: null
-        } 
+    secondDose: {
+        type: Date, 
+        default: null
     },
     fullyVacinated: {
         type: Boolean,

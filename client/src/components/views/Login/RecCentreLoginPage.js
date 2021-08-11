@@ -1,12 +1,12 @@
 import React from 'react'
 import FormLogin from '../../Form/FormLogin'
 
-function LoginPage() {
+function RecCentreLoginPage() {
     return (
         <>
-            <FormLogin />
+            <FormLogin user="Recreation Centre"/>
         </>
     )
 }
 
-export default LoginPage
+export default RecCentreLoginPage
