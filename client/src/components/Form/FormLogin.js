@@ -1,7 +1,7 @@
 /*
     FormLogin component adapted from: https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-in 
  */
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { Redirect } from 'react-router';
 
 import { useForm, Controller } from 'react-hook-form';    // 3rd party library for handling forms
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -51,11 +52,12 @@ const validationSchema = Yup.object().shape({
 
 function FormLogin({ user }) {
     const classes = useStyles();
+    const [redirect, setRedirect] = useState(false);
 
-    const onSubmit = data => {
-      alert(JSON.stringify(data));   // Remove this later
-      // Call the login function
+    const onSubmit = (data, e) => {
+      e.preventDefault();
       loginUser(data);    // Handle req that is not 200
+      setRedirect(true);
     };
 
     const { 
@@ -63,6 +65,10 @@ function FormLogin({ user }) {
       control,
     } = useForm({resolver: yupResolver(validationSchema)});
 
+    if (redirect) {
+      return <Redirect to='/user-cal' />
+    }
+    
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -137,7 +143,7 @@ function FormLogin({ user }) {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                <Link href="/user/register" variant="body2">
+                <Link href={user} variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

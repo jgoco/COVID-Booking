@@ -11,10 +11,10 @@ import Footer from './components/Footer/Footer';
 import UserLoginPage from './components/views/Login/UserLoginPage';
 import RecCentreLoginPage from './components/views/Login/RecCentreLoginPage';
 import RegisterPage from './components/views/Register/UserRegisterPage';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 function App() {
 
-  const [userLoginStatus, setUserLoginStatus] = useState(true);
 
   return (
       <div>
@@ -26,7 +26,7 @@ function App() {
            <Route exact path='/user-cal' component={UserCalendar} />
            <Route exact path='/user/login' component={UserLoginPage}/>
            <Route exact path='/user/register' component={RegisterPage}/>
-           <Route path='/user/:id/classes'/>
+           <PrivateRoute path='/user/classes' component={UserCalendar}/>
            <Route exact path='/centre/login' component={RecCentreLoginPage}/>
            <Route exact path='/centre/register' />
            <Route exact path='/centre/:id/classes' />
