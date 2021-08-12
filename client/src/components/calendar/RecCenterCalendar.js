@@ -127,7 +127,6 @@ function RecCenterCalendar() {
             backgroundColor: '#0EA5E9',
             borderRadius: '8px'
         }
-
     }));
 
     // Calendar's top date bar
@@ -170,7 +169,7 @@ function RecCenterCalendar() {
             onFieldChange({ maxClassSize: nextValue });
         }
 
-        // TODO: get button working
+        // TODO: for implementation of screening function
         const onEditVaccination = (nextValue) => {
             onFieldChange({ vaccinationOnly: nextValue });
         }
@@ -202,7 +201,7 @@ function RecCenterCalendar() {
                     onValueChange={onEditClassSize}
                 />
                 <AppointmentForm.BooleanEditor
-                    label="Vaccinated attendents only?"
+                    label="Vaccinated participants only?"
                     readOnly={false}
                     value={appointmentData.vaccinatedOnly}
                     onValueChange={onEditVaccination}

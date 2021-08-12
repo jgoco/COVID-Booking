@@ -9,7 +9,6 @@ router.get('/', function(req, res, next) {
   Appointment.find()
       .exec()
       .then((data) => {
-        console.log(data);
         res.send(data);
       })
       .catch((err) => {
@@ -20,13 +19,11 @@ router.get('/', function(req, res, next) {
 /* POST a new appointment. */
 router.post('/', function(req, res, next) {
   let newApp = req.body;
-  console.log(newApp);
   let maxSize = parseInt(newApp['maxClassSize'])
   if (maxSize > 0) {
-      // time-zone fix
       let updatedStart = newApp['startDate'].substring(0, 16);
       let sdate = updatedStart.substring(0, 11);
-      let shour = parseInt(updatedStart.substring(11, 13)) - 7;            // note: not robust to times before 7am.
+      let shour = parseInt(updatedStart.substring(11, 13)) - 7;
       let sminute = updatedStart.substring(13, 16);
       let newStart = '';
       if (shour < 10) {
@@ -38,7 +35,7 @@ router.post('/', function(req, res, next) {
       }
       let updatedEnd = newApp['endDate'].substring(0, 16);
       let edate = updatedEnd.substring(0, 11);
-      let ehour = parseInt(updatedEnd.substring(11, 13)) - 7;            // note: not robust to times before 7am.
+      let ehour = parseInt(updatedEnd.substring(11, 13)) - 7;
       let eminute = updatedEnd.substring(13, 16);
       let newEnd = '';
       if (ehour < 10) {
@@ -65,7 +62,6 @@ router.post('/', function(req, res, next) {
       });
       dbNewApp.save()
           .then((data) => {
-              console.log(data);
               res.send(dbNewApp);
           })
           .catch((err) => {
@@ -78,12 +74,9 @@ router.post('/', function(req, res, next) {
 router.patch('/:id', function(req, res, next) {
   const updateID = req.params['id'];
   const updateOps = req.body;
-  console.log(updateOps);
-
   Appointment.findByIdAndUpdate(updateID, { $set: updateOps})
       .exec()
       .then((data) => {
-        console.log(req.body['editName'] + ' was edited.');
         res.send(data);
       })
       .catch((err) => {
@@ -97,7 +90,6 @@ router.delete('/:id', function(req, res, next) {
   Appointment.findByIdAndDelete({_id: deleteID})
       .exec()
       .then((data) => {
-        console.log('class ' + deleteID + ' was removed.');
         res.send(data);
       })
       .catch((err) => {

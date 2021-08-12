@@ -18,7 +18,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import {useState, useEffect} from "react";
 import './Calendar.css'
-
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
@@ -33,7 +32,7 @@ function UserCalendar() {
     const [list, setList] = useState(startingList);
 
     async function callGET() {
-        await fetch("http://rec-center-booking/user-cal")
+        await fetch("https://rec-center-booking.herokuapp.com/user-cal")
             .then(res => res.json())
             .then(data => startingList = data)
             .catch(err => err);
@@ -41,7 +40,7 @@ function UserCalendar() {
 
     // TODO: implement once route is established
     async function callEDIT(id) {
-        await fetch('http://rec-center-booking/user-cal/' + id, {
+        await fetch('https://rec-center-booking.herokuapp.com/user-cal/' + id, {
             method: 'PATCH',
             body: JSON.stringify(id),
             headers: {
