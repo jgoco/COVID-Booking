@@ -7,6 +7,7 @@ var logger = require('morgan');
 var cors = require('cors');
 var mongoose = require('mongoose');
 var dotenv = require('dotenv');
+var cookieParser = require('cookie-parser');
 
 /* ----------- IMPORT ROUTES ----------- */
 var recRouter = require('./routes/rec-center');
@@ -19,8 +20,9 @@ dotenv.config();
 var app = express();
 
 /* ----------- EXPRESS MIDDLEWARE ----------- */ 
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 app.use(logger('dev'));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

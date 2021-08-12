@@ -22,12 +22,12 @@ function App() {
          <NavBar />
          <Switch>
            <Route exact path='/' component={Home}/>
-           <Route exact path='/rec-center' component={RecCenterCalendar} />
-           <Route exact path='/user-cal' component={UserCalendar} />
-           <Route exact path='/user/login' component={UserLoginPage}/>
-           <Route exact path='/user/register' component={RegisterPage}/>
+           <Route exact path='/api/rec-center' component={RecCenterCalendar} />
+           <Route exact path='/api/user-cal' component={UserCalendar} />
+           <Route exact path='/api/user/login' component={UserLoginPage}/>
+           <Route exact path='/api/user/register' component={RegisterPage}/>
            <Route path='/user/:id/classes'/>
-           <Route exact path='/centre/login' component={RecCentreLoginPage}/>
+           <Route exact path='/api/centre/login' component={RecCentreLoginPage}/>
            <Route exact path='/centre/register' />
            <Route exact path='/centre/:id/classes' />
            <Route exact path='/about' />
