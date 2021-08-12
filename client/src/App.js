@@ -22,7 +22,9 @@ function App() {
          <NavBar />
          <Switch>
            <Route path='/' exact component={Home}/>
-           <Route exact path='/rec-center' component={RecCenterCalendar} />
+           <Route exact path='/rec-center' >
+               <RecCenterCalendar />
+           <Route />
            <Route exact path='/user-cal' component={UserCalendar} />
            <Route exact path='/user/login' component={UserLoginPage}/>
            <Route exact path='/user/register' component={RegisterPage}/>
