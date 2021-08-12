@@ -14,7 +14,6 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import DateFnsUtils from '@date-io/date-fns';
 import 'date-fns';
-import { Redirect } from 'react-router';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {  MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
@@ -22,7 +21,6 @@ import { useForm, Controller } from 'react-hook-form';    // 3rd party library f
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import {registerUser} from '../../actions/Authenticate'
-
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -63,17 +61,16 @@ const useStyles = makeStyles((theme) => ({
   
   export default function SignUp() {
     const classes = useStyles();
+    // Hook for authentication
 
     // From react-hook-form library
     const { handleSubmit, control, setValue } = useForm({resolver: yupResolver(validationSchema)});
 
-    const [redirect, setRedirect] = useState(false);
-
-    const onSubmit = (data, e) => {
+    const onSubmit = data => {
+      alert(JSON.stringify(data));    // Remove this later
       // Call method that sends data to the BE
-      e.preventDefault();
-      registerUser(data);
-      setRedirect(true);
+      registerUser(data);       // Do some error handling -- What if the response code isn't 200
+
     };
 
     
@@ -89,10 +86,6 @@ const useStyles = makeStyles((theme) => ({
       setSelectedSecondDoseDate(date);
       setValue('secondDose', date, {shouldValidate: true, shouldDirty: true})
     };
-
-    if (redirect) {
-      return <Redirect to='/user-cal' />
-    }
 
     return (
       <Container component="main" maxWidth="xs">

@@ -1,4 +1,3 @@
-import auth from '../middleware/auth';
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
@@ -16,10 +15,6 @@ router.get('/', function(req, res, next) {
             console.log(err);
         })
 });
-
-router.get('/user-cal', function (req, res, next) {
-
-}) 
 
 // TODO: implement once route is established
 /* EDIT an appointment. */

@@ -4,43 +4,6 @@ const jsonwebtoken = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const {registrationValidation, loginValidation} = require('../inputValidation');
 
-
-const signToken = id => {
-    return jsonwebtoken.sign({ id }, process.env.JWT_SECRET, {
-           expiresIn: 36000
-    });
- }
-
- const createUserCookies = async(user, respCode, req, res) => {
-    const token = signToken(user._id);
-    let date = new Date();
-    date.setDate(date.getDate() + 1);
-
-    res.cookie('jwt', token, {
-        expires: date,
-        httpOnly: true
-    });
-
-    res.cookie('isUser', true, {
-        expires: date,
-        httpOnly: true
-    });
-
-    res.cookie('isFullyVaccinated', user.fullyVaccinated, {
-        expires: date,
-        httpOnly: true
-    });
-
-    user.password = undefined;
-    res.status(respCode).json({
-       status: 'success',
-       token,
-       data: {
-          user
-        }
-    });
- }
-
 async function loginUser(req, res, next) {
     let {error} = loginValidation(req.body);
     if (error) {
@@ -60,7 +23,19 @@ async function loginUser(req, res, next) {
         if (!verifyPassword) {
             return res.status(400).send("Incorrect password.");
         }
-        createUserCookies(userExists, 201, req, res);
+
+        // Web token - stored in the header
+        const payload = {
+            user: {
+                _id: userExists._id,
+            }
+        };
+        jsonwebtoken.sign(payload, process.env.JWT_SECRET, {expiresIn: 36000}, (error, token) => {
+            if (error) throw error;
+            res.header('Authentication-token', token).send(token);
+            // res.setHeader('Set-Cookie', 'authtoken')
+            res.status(200).send(token);
+        });
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
@@ -104,33 +79,26 @@ async function registerUser(req, res, next) {
 
         user.save()
             .then((data) => {
-                createUserCookies(data, 201, req, res);
+                console.log(data);
+                const payload = {
+                    id: data._id,
+                };
+                jsonwebtoken.sign(payload, process.env.JWT_SECRET, {expiresIn: 36000}, (error, token) => {
+                    if (error) throw error;
+                    res.header('Authentication-Token', token).send(token);
+                    // res.setHeader('Authentication-Token', token)
+                    res.status(200).send(token);
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+                throw error;
             });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
 }
-
-// exports.checkUserLogin = catchAsync(async (req, res, next) => {
-//     let currentUser;
-//     const token = req.cookies.jwt;
-//     if (token) {
-//         const decodedToken = await promisify(jsonwebtoken.verify)(token, process.env.JWT_SECRET);
-//         currentUser = await User.findById(decodedToken.id);
-//     } else {
-//         currentUser = null;
-//     }
-//     res.status(200).send({ currentUser });
-// });
-
-// exports.logoutUser = catchAsync(async (req, res, next) => {
-//     // 'Logout' by overwriting the jwt token
-//     res.cookie('jwt', 'loggedout', {
-//         expires: date,
-//         httpOnly: true
-//     });
-// });
 
 module.exports.loginUser = loginUser;
 module.exports.registerUser = registerUser;
