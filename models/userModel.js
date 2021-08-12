@@ -30,9 +30,8 @@ const userSchema = new Schema({
         type: Date, 
         default: null
     },
-    fullyVacinated: {
+    fullyVaccinated: {
         type: Boolean,
-        default: false,          // A new user is assumed to have not received any doses
         required: true
     }
 }, {collection: 'users'});

@@ -1,15 +1,8 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jsonwebtoken = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 const {registrationValidation, loginValidation} = require('../inputValidation');
-
-function getVaccinationStatus(firstDose, secondDose) {
-    if (firstDose && secondDose) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 async function loginUser(req, res, next) {
     let {error} = loginValidation(req.body);
@@ -18,20 +11,35 @@ async function loginUser(req, res, next) {
         return res.status(400).send(error.details[0].message);
     }
 
-    let userExists = await User.findOne({email: req.body.email});
-    if (!userExists) {
-        return res.status(400).send("There is no user with the given email.");
-    }
+    try {
+        // Check if user exists
+        let userExists = await User.findOne({email: req.body.email});
+        if (!userExists) {
+            return res.status(400).send("There is no user with the given email.");
+        }
 
-    // Verify password
-    let verifyPassword = await bcrypt.compare(req.body.password, userExists.password);
-    if (!verifyPassword) {
-        return res.status(400).send("Incorrect password.");
-    }
+        // Verify password
+        let verifyPassword = await bcrypt.compare(req.body.password, userExists.password);
+        if (!verifyPassword) {
+            return res.status(400).send("Incorrect password.");
+        }
 
-    // Web token - stored in the header
-    let token = jsonwebtoken.sign({_id: userExists._id}, process.env.JWT_SECRET);
-    res.header('Authentication-Token', token).send(token);
+        // Web token - stored in the header
+        const payload = {
+            user: {
+                _id: userExists._id,
+            }
+        };
+        jsonwebtoken.sign(payload, process.env.JWT_SECRET, {expiresIn: 36000}, (error, token) => {
+            if (error) throw error;
+            res.header('Authentication-token', token).send(token);
+            // res.setHeader('Set-Cookie', 'authtoken')
+            res.status(200).send(token);
+        });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
 } 
 
 async function registerUser(req, res, next) {
@@ -48,35 +56,48 @@ async function registerUser(req, res, next) {
         return res.status(400).send(error.details[0].message);
     }
 
-    // Query db for duplicate user
-    let userExists = await User.findOne({email: req.body.email});
-    if (userExists) {
-        return res.status(400).send("A user with this email already exists");
-    }
+    try {
+        // Query db for duplicate user
+        let userExists = await User.findOne({email: req.body.email});
+        if (userExists) {
+            return res.status(400).send("A user with this email already exists");
+        }
 
-    // Masking of password
-    let salt = await bcrypt.genSalt(12);
-    let maskedPassword = await bcrypt.hash(req.body.password, salt);
+        // Masking of password
+        let salt = await bcrypt.genSalt(12);
+        let maskedPassword = await bcrypt.hash(req.body.password, salt);
 
-    const user = new User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: maskedPassword,
-        firstDose: req.body.firstDose,
-        secondDose: req.body.secondDose,
-        fullyVaccinated: (req.body.firstDose && req.body.secondDose)      // TODO: Debug this method still
-    });
-
-    user.save()
-        .then((data) => {
-            console.log(data);
-            res.send(data);
-        })
-        .catch((error) => {
-            console.log(error);
-            res.status(400).send(error);
+        const user = new User({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            password: maskedPassword,
+            firstDose: req.body.firstDose,
+            secondDose: req.body.secondDose,
+            fullyVaccinated: (req.body.firstDose && req.body.secondDose) ? true : false
         });
+
+        user.save()
+            .then((data) => {
+                console.log(data);
+                const payload = {
+                    id: data._id,
+                };
+                jsonwebtoken.sign(payload, process.env.JWT_SECRET, {expiresIn: 36000}, (error, token) => {
+                    if (error) throw error;
+                    res.header('Authentication-Token', token).send(token);
+                    // res.setHeader('Authentication-Token', token)
+                    res.status(200).send(token);
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+                throw error;
+            });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
 }
 
 module.exports.loginUser = loginUser;
