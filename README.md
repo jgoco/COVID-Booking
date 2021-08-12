@@ -139,9 +139,10 @@ for edge cases must be done in order to ensure concurrency works appropriately.
 
 ### Jamie Goco
 
-- Calendar React component: Implementation and design of both the rec-center and user calendar components.
+- Calendar React component: Implementation and design of both the rec-center and user calendar component, including
+routing to back-end and front-end.
 - Rec-center and User API: Implementation of all API calls made by the calendar in order to retrieve, add, edit, and
-delete information about classes, as well as back-end logic to achieve booking applications.
+delete information about classes, as well as routing and back-end logic to achieve booking applications.
 - Documentation of the project: Wrote and designed most written and picture documentation of the project.
 
 ### Terry Wong

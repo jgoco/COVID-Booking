@@ -36,7 +36,7 @@ function UserCalendar() {
     let userID = 1234;
 
     async function callGET() {
-        await fetch("https://rec-center-booking.herokuapp.com/api/user-cal/")
+        await fetch("/api/user-cal/")
             .then(res => res.json())
             .then(data => startingList = data)
             .catch(err => err);
@@ -57,7 +57,7 @@ function UserCalendar() {
     }
 
     async function callEDITcheckfull(classID, userID) {
-        await fetch("https://rec-center-booking.herokuapp.com/api/user-cal/" + classID)
+        await fetch("/api/user-cal/" + classID)
             .then((isFull) => {
                 if (!isFull) {
                     console.log('class has space')

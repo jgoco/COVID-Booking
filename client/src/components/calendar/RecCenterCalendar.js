@@ -32,14 +32,14 @@ function RecCenterCalendar() {
     const [list, setList] = useState(startingList);
 
     async function callGET() {
-        await fetch("https://rec-center-booking.herokuapp.com/api/rec-center")
+        await fetch("/api/rec-center")
             .then(res => res.json())
             .then(data => startingList = data)
             .catch(err => err);
     }
 
     async function callPOST(object) {
-        await fetch('https://rec-center-booking.herokuapp.com/api/rec-center', {
+        await fetch('/api/rec-center', {
             method: 'post',
             body: JSON.stringify(object),
             headers: {'Content-Type': 'application/json'}
@@ -50,7 +50,7 @@ function RecCenterCalendar() {
     async function callEDIT(object) {
         let id = Object.keys(object)[0];
         console.log(object[id])
-        await fetch('https://rec-center-booking.herokuapp.com/api/rec-center/' + id, {
+        await fetch('/api/rec-center/' + id, {
             method: 'PATCH',
             body: JSON.stringify(object[id]),
             headers: {
@@ -62,7 +62,7 @@ function RecCenterCalendar() {
     }
 
     async function callDELETE(id) {
-        await fetch('https://rec-center-booking.herokuapp.com/api/rec-center/' + id, {
+        await fetch('/api/rec-center/' + id, {
             method: 'delete',
         }).then(data => console.log('Delete'))
             .catch(err => err);
