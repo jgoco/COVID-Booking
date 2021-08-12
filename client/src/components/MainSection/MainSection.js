@@ -1,4 +1,3 @@
-import React from 'react';
 import './MainSection.css';
 import SectionRow from '../SectionRow/SectionRow';
 

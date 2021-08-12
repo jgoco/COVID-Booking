@@ -33,7 +33,7 @@ function NavBar() {
         <div className="navbar-container container">
           <Link to='/' className="navbar-logo" onClick={closeMobileMenu}>
             <EventIcon className="navbar-icon"> </EventIcon>
-            COVID BOOKING
+            RecCenter Booking
           </Link>
           <div className="menu-icon" onClick={handleClick}>
             {

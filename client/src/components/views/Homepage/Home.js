@@ -1,13 +1,10 @@
-import React from 'react'
 import MainSection from '../../MainSection/MainSection'
-import {usagesObject, patronsObject, recCenterObject} from './HomepageData';
+import {usagesObject} from './HomepageData';
 
 function Home() {
     return (
         <>
           <MainSection {... usagesObject} />
-          <MainSection {... patronsObject} />
-          <MainSection {... recCenterObject} />    
         </>
     )
 }
