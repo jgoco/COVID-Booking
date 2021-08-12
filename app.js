@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 var dotenv = require('dotenv');
 
 /* ----------- IMPORT ROUTES ----------- */ 
-var indexRouter = require('./routes/index');
+//var indexRouter = require('./routes/index');
 var recRouter = require('./routes/rec-center');
 var userAuthenicationRoute = require('./routes/userAuthenticationRoute');
 var userRouter = require('./routes/user');
@@ -33,10 +33,12 @@ app.use(cookieParser());
 // check route
 app.use(express.static(path.join(__dirname, 'build')));
 
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + 'build' + 'index.html'));
+})
 
 /* ----------- ROUTES ----------- */ 
-app.use('/', indexRouter);
+//app.use('/', indexRouter);
 app.use('/rec-center', recRouter);
 app.use('/user', userAuthenicationRoute);
 app.use('/user-cal', userRouter)
