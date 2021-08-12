@@ -76,6 +76,10 @@ hospital-workers, teachers, etc.).
     - Store classes in a state to refresh the calendar on every update using React Hooks
     - Uses drawers and dialogs to access information cleanly
 - Create a static Home page
+- Created the SectionRow component to allow for displaying modular Homepage content.
+- Created a NavBar that is mobile friendly.
+- Implemented the Register/Login forms and associated logic for parsing their values.
+- Attempted to implement private routes for authenticated users (unsuccessful) 
         
 ### Unit 3: Node & Express
 
@@ -89,7 +93,10 @@ hospital-workers, teachers, etc.).
     - Combined with calendar React component, User API calls allow the calendar to:
         - retrieve (GET) all classes and display information about the class
         - register (PATCH) a certain class
-        
+- Design and implemented the endpoints for user registration and login -- this includes logic for input validation,
+  as well as checking for duplicate accounts before registering.
+        - register (POST)
+        - login (POST)
 ### Unit 4: NoSQL & MongoDB
 
 - Stores persistent data using MongoDB
@@ -102,7 +109,7 @@ hospital-workers, teachers, etc.).
 - Uses Mongoose with API calls to query MongoDB database and obtain stored information
     - Linked with the calendar React component, allows users and rec center administration to view class information
     - Allows rec center administration to create, edit, and delete classes
-
+- Created the userModel schema which is used for storing newly registered users and for validating form input. 
 ### Unit 5: Release Engineering
 
 - Application deployed using Heroku
@@ -137,4 +144,6 @@ delete information about classes, as well as back-end logic to achieve booking a
 
 ### Terry Wong
 
-- Login function: **insert contributions here**
+- Login/Register React components: Implemented the components as well as associated hooks required to retrieve a user's input.
+- Server side logic for Register/Login -- including endpoint setup, POST request testing (via Postman), user input validation,
+  duplicate user registration handling, password hashing.
