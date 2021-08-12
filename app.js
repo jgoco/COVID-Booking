@@ -8,8 +8,7 @@ var cors = require('cors');
 var mongoose = require('mongoose');
 var dotenv = require('dotenv');
 
-/* ----------- IMPORT ROUTES ----------- */ 
-var indexRouter = require('./routes/index');
+/* ----------- IMPORT ROUTES ----------- */
 var recRouter = require('./routes/rec-center');
 var userAuthenicationRoute = require('./routes/userAuthenticationRoute');
 var userRouter = require('./routes/user');
@@ -25,7 +24,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, '/client/build')));
 
 
 /* ----------- DATABASE CONNECTION ----------- */
@@ -34,11 +33,14 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
     .catch((error) => console.log(error));
 
 
-/* ----------- ROUTES ----------- */ 
-app.use('/', indexRouter);
+/* ----------- ROUTES ----------- */
 app.use('/api/rec-center', recRouter);
-app.use('/user', userAuthenicationRoute);
+app.use('/api/user', userAuthenicationRoute);
 app.use('/api/user-cal', userRouter)
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/client/build/index.html'));
+});
 
 
 /* ----------- ERROR HANDLING ----------- */ 
