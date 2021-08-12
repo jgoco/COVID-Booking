@@ -36,9 +36,9 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 
 /* ----------- ROUTES ----------- */ 
 app.use('/', indexRouter);
-app.use('/rec-center', recRouter);
+app.use('/api/rec-center', recRouter);
 app.use('/user', userAuthenicationRoute);
-app.use('/user-cal', userRouter)
+app.use('/api/user-cal', userRouter)
 
 
 /* ----------- ERROR HANDLING ----------- */ 

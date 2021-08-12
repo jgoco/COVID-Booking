@@ -36,7 +36,7 @@ function UserCalendar() {
     let userID = 1234;
 
     async function callGET() {
-        await fetch("https://rec-center-booking.herokuapp.com/user-cal")
+        await fetch("https://rec-center-booking.herokuapp.com/api/user-cal/")
             .then(res => res.json())
             .then(data => startingList = data)
             .catch(err => err);
@@ -45,7 +45,7 @@ function UserCalendar() {
     async function callEDIT(classID, userID) {
         let object = {};
         object['classID'] = classID;
-        fetch('https://rec-center-booking.herokuapp.com/user-cal/' + userID, {
+        fetch('/api/user-cal/' + userID, {
             method: 'PATCH',
             body: JSON.stringify(object),
             headers: {
@@ -57,7 +57,7 @@ function UserCalendar() {
     }
 
     async function callEDITcheckfull(classID, userID) {
-        await fetch("https://rec-center-booking.herokuapp.com/user-cal/" + classID)
+        await fetch("https://rec-center-booking.herokuapp.com/api/user-cal/" + classID)
             .then((isFull) => {
                 if (!isFull) {
                     console.log('class has space')
