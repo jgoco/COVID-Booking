@@ -23,7 +23,7 @@ function SectionRow({
                     </div>
                     <h1 className={isLightText ? 'heading' : 'heading dark'}>{headline}</h1>
                     <p className={isLightTextDescription ? 'section-row-subtitle' : 'section-row-subtitle dark'}>{description}</p>
-                    <Link to='user/register'>
+                    <Link to='/api/user/register'>
                         <Button buttonSize='btn--wide' buttonColour='blue'>{buttonLabel}</Button>
                     </Link>
                 </div>

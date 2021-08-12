@@ -137,7 +137,7 @@ function FormLogin({ user }) {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                <Link href="/user/register" variant="body2">
+                <Link href="/api/user/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
