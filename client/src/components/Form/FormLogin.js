@@ -52,17 +52,11 @@ const validationSchema = Yup.object().shape({
 
 function FormLogin({ user }) {
     const classes = useStyles();
-    const [redirect, setRedirect] = useState(false);
 
     const onSubmit = data => {
       // Call the login function
       loginUser(data);    // Handle req that is not 200
-      setRedirect(true);
     };
-
-    if (redirect) {
-      return <Redirect to='/user-cal' />
-    }
 
     const { 
       handleSubmit, 
