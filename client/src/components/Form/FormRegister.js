@@ -21,6 +21,7 @@ import { useForm, Controller } from 'react-hook-form';    // 3rd party library f
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import {registerUser} from '../../actions/Authenticate'
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -73,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
     };
 
     if (redirect) {
-      return <Redirect to='/api/user-cal' />
+      return <Redirect to='/user-cal' />
     }
     
     const [selectedFirstDoseDate, setSelectedFirstDoseDate] = useState(null);

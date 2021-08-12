@@ -1,7 +1,7 @@
 /*
     FormLogin component adapted from: https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-in 
  */
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -19,6 +19,7 @@ import { useForm, Controller } from 'react-hook-form';    // 3rd party library f
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { loginUser } from '../../actions/Authenticate';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -60,7 +61,7 @@ function FormLogin({ user }) {
     };
 
     if (redirect) {
-      return <Redirect to='/api/user-cal' />
+      return <Redirect to='/user-cal' />
     }
 
     const { 
