@@ -27,6 +27,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 function UserCalendar() {
 
+    let userID = 1234;
+
     /* ----------- SERVER FUNCTIONS ----------- */
     let startingList = [];
     const [list, setList] = useState(startingList);
@@ -38,16 +40,36 @@ function UserCalendar() {
             .catch(err => err);
     }
 
-    // TODO: implement once route is established
-    async function callEDIT(id) {
-        await fetch('https://rec-center-booking.herokuapp.com/user-cal/' + id, {
+    // TODO: debug once route is established
+    async function callEDIT(classID, userID) {
+        let object = {};
+        object['classID'] = classID;
+        fetch('https://rec-center-booking.herokuapp.com/user-cal/' + userID, {
             method: 'PATCH',
-            body: JSON.stringify(id),
+            body: JSON.stringify(object),
             headers: {
                 'Content-Type': 'application/json',
                 'x-Trigger': 'CORS'
             }
-        }).then(data => console.log('Edited card'))
+        }).then(data => console.log('Registered'))
+            .catch(err => err);
+    }
+
+    async function callEDITcheckfull(classID, userID) {
+        await fetch("https://rec-center-booking.herokuapp.com/user-cal/" + classID)
+            .then((isFull) => {
+                if (!isFull) {
+                    console.log('class has space')
+                    callEDIT(classID, userID)
+                } else {
+                    console.log('class is full')
+                }
+            })
+            .then((edit) => {
+                callGET()
+                    .then(() => setList(startingList))
+                    .catch((err) => err);
+            })
             .catch(err => err);
     }
 
@@ -149,7 +171,7 @@ function UserCalendar() {
             appointmentData={appointmentData}
         >
             <IconButton
-                onClick={() => callEDIT(appointmentData._id)}
+                onClick={() => callEDITcheckfull(appointmentData._id, userID)}
                 className={classes.commandButton}
             >
                 <AddIcon />

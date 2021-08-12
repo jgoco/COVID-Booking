@@ -42,7 +42,7 @@ function RecCenterCalendar() {
             method: 'post',
             body: JSON.stringify(object),
             headers: {'Content-Type': 'application/json'}
-        }).then(data => console.log('Added appointment'))
+        }).then(data => console.log('Add'))
             .catch(err => err);
     }
 
@@ -56,14 +56,14 @@ function RecCenterCalendar() {
                 'Content-Type': 'application/json',
                 'x-Trigger': 'CORS'
             }
-        }).then(data => console.log('Edited card'))
+        }).then(data => console.log('Edit'))
             .catch(err => err);
     }
 
     async function callDELETE(id) {
         await fetch('https://rec-center-booking.herokuapp.com/rec-center/' + id, {
             method: 'delete',
-        }).then(data => console.log('Deleted appointment'))
+        }).then(data => console.log('Delete'))
             .catch(err => err);
     }
 
@@ -76,19 +76,19 @@ function RecCenterCalendar() {
 
     function commitChanges({added, changed, deleted}) {
         if (added) {
-            callPOST(added).then(() => console.log(added));
-            callGET().then((data) => console.log(data))
+            callPOST(added).then(() => console.log('Add'));
+            callGET().then((data) => console.log('Success'))
                 .then(() => setList(startingList));
         }
         if (changed) {
-            callEDIT(changed).then(() => console.log(changed));
-            callGET().then((data) => console.log(data))
+            callEDIT(changed).then(() => console.log('Edit'));
+            callGET().then((data) => console.log('Success'))
                 .then(() => setList(startingList))
                 .then(() => console.log(startingList));
         }
         if (deleted !== undefined) {
-            callDELETE(deleted).then(() => console.log(deleted));
-            callGET().then((data) => console.log(data))
+            callDELETE(deleted).then(() => console.log('Delete'));
+            callGET().then((data) => console.log('Success'))
                 .then(() => setList(startingList))
                 .then(() => console.log(startingList));
         }
