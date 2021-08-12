@@ -97,6 +97,7 @@ hospital-workers, teachers, etc.).
   as well as checking for duplicate accounts before registering.
         - register (POST)
         - login (POST)
+
 ### Unit 4: NoSQL & MongoDB
 
 - Stores persistent data using MongoDB
@@ -110,6 +111,7 @@ hospital-workers, teachers, etc.).
     - Linked with the calendar React component, allows users and rec center administration to view class information
     - Allows rec center administration to create, edit, and delete classes
 - Created the userModel schema which is used for storing newly registered users and for validating form input. 
+
 ### Unit 5: Release Engineering
 
 - Application deployed using Heroku
@@ -144,6 +146,7 @@ delete information about classes, as well as back-end logic to achieve booking a
 
 ### Terry Wong
 
-- Login/Register React components: Implemented the components as well as associated hooks required to retrieve a user's input.
-- Server side logic for Register/Login -- including endpoint setup, POST request testing (via Postman), user input validation,
-  duplicate user registration handling, password hashing.
+- Login/Register React components: Implemented the components as well as associated hooks required to retrieve a user's
+input.
+- Server side logic for Register/Login -- including endpoint setup, POST request testing (via Postman), user input
+validation, duplicate user registration handling, password hashing.

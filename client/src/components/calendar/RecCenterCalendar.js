@@ -27,6 +27,7 @@ import './Calendar.css'
 function RecCenterCalendar() {
 
     /* ----------- SERVER FUNCTIONS ----------- */
+
     let startingList = [];
     const [list, setList] = useState(startingList);
 
@@ -94,7 +95,8 @@ function RecCenterCalendar() {
         }
     }
 
-    /* ----------- STYLE AND COMPONENTS ----------- */
+    /* ----------- STYLE ----------- */
+
     const useStyles = makeStyles(theme => ({
         // DayScaleCell styling
         today: {
@@ -128,6 +130,8 @@ function RecCenterCalendar() {
             borderRadius: '8px'
         }
     }));
+
+    /* ----------- COMPONENTS ----------- */
 
     // Calendar's top date bar
     const DayScaleCell = (props) => {
@@ -217,6 +221,8 @@ function RecCenterCalendar() {
     const BoolEditor = (props) => {
         return <AppointmentForm.BooleanEditor {...props} readOnly />;
     }
+
+    /* ----------- RESULTING COMPONENT ----------- */
 
     return (
         <div id='main-panel'>

@@ -20,6 +20,8 @@ import {useState, useEffect} from "react";
 import './Calendar.css'
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 import Grid from '@material-ui/core/Grid';
 import Room from '@material-ui/icons/Room';
 import { withStyles } from '@material-ui/core/styles';
@@ -27,11 +29,11 @@ import { withStyles } from '@material-ui/core/styles';
 
 function UserCalendar() {
 
-    let userID = 1234;
-
     /* ----------- SERVER FUNCTIONS ----------- */
+
     let startingList = [];
     const [list, setList] = useState(startingList);
+    let userID = 1234;
 
     async function callGET() {
         await fetch("https://rec-center-booking.herokuapp.com/user-cal")
@@ -40,7 +42,6 @@ function UserCalendar() {
             .catch(err => err);
     }
 
-    // TODO: debug once route is established
     async function callEDIT(classID, userID) {
         let object = {};
         object['classID'] = classID;
@@ -80,7 +81,9 @@ function UserCalendar() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    /* ----------- STYLE AND COMPONENTS ----------- */
+    /* ----------- STYLES ----------- */
+
+    // General styling
     const useStyles = makeStyles(theme => ({
         // DayScaleCell styling
         today: {
@@ -114,6 +117,7 @@ function UserCalendar() {
             borderRadius: '8px'
         }
     }));
+
     // Tooltip styling
     const style = ({ palette }) => ({
         icon: {
@@ -133,6 +137,8 @@ function UserCalendar() {
             backgroundColor: '#96cfa9',
         },
     });
+
+    /* ----------- COMPONENTS ----------- */
 
     // Calendar's top date bar
     const DayScaleCell = (props) => {
@@ -164,6 +170,7 @@ function UserCalendar() {
         </Appointments.Appointment>
     );
 
+    // Appointment Tooltip
     const Header = withStyles(style, { name: 'Header' })(({children, appointmentData, classes, ...restProps}) => (
         <AppointmentTooltip.Header
             {...restProps}
@@ -189,13 +196,13 @@ function UserCalendar() {
                     <span>{appointmentData.location}</span>
                 </Grid>
                 <Grid item xs={2} className={classes.textCenter}>
-                    <Room className={classes.icon} />
+                    <ArrowRightIcon />
                 </Grid>
                 <Grid item xs={10}>
                     <span>{appointmentData.notes}</span>
                 </Grid>
                 <Grid item xs={2} className={classes.textCenter}>
-                    <Room className={classes.icon} />
+                    <AccountCircleIcon />
                 </Grid>
                 <Grid item xs={10}>
                     <span>Max {appointmentData.maxClassSize} people in the class.</span>
@@ -207,6 +214,8 @@ function UserCalendar() {
     const CommandButton = withStyles(style, { name: 'CommandButton' })(({classes, ...restProps}) => (
         <AppointmentTooltip.CommandButton {...restProps} className={classes.commandButton} />
     ));
+
+    /* ----------- RESULTING COMPONENT ----------- */
 
     return (
         <div id='main-panel'>
