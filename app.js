@@ -12,6 +12,7 @@ var dotenv = require('dotenv');
 var indexRouter = require('./routes/index');
 var recRouter = require('./routes/rec-center');
 var userAuthenicationRoute = require('./routes/userAuthenticationRoute');
+var userRouter = require('./routes/user');
 
 // Gives access to env variables
 dotenv.config();
@@ -37,7 +38,7 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 app.use('/', indexRouter);
 app.use('/rec-center', recRouter);
 app.use('/user', userAuthenicationRoute);
-
+app.use('/user-cal', userRouter)
 
 
 /* ----------- ERROR HANDLING ----------- */ 

@@ -3,9 +3,10 @@ import React, {Fragment, useState} from 'react';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 // Components
-import NavBar from './components/NavBar/NavBar';
+import NavBar from './components/navbar/NavBar';
 import Home from './components/views/Homepage/Home';
-import MainPanel from './components/MainPanel/MainPanel';
+import RecCenterCalendar from './components/calendar/RecCenterCalendar';
+import UserCalendar from './components/calendar/UserCalendar';
 import Footer from './components/Footer/Footer';
 import UserLoginPage from './components/views/Login/UserLoginPage';
 import RecCentreLoginPage from './components/views/Login/RecCentreLoginPage';
@@ -28,7 +29,8 @@ function App() {
            <Route exact path='/centre/register' />
            <Route exact path='/centre/:id/classes' />
            <Route exact path='/about' />
-           <Route path='/rec-center' component={MainPanel} />
+           <Route path='/rec-center' component={RecCenterCalendar} />
+           <Route path='/user-cal' component={UserCalendar} />
          </Switch>
          <Footer />
         </Router>

@@ -1,13 +1,12 @@
 import './MainPanel.css';
-import Calendar from '../Calendar/Calendar';
+import RecCenterCalendar from '../calendar/RecCenterCalendar';
 
 function MainPanel() {
     return (
         <div id='main-panel'>
-            <Calendar />
+            <RecCenterCalendar />
         </div>
     );
 }
-
 
 export default MainPanel;
