@@ -61,18 +61,20 @@ const useStyles = makeStyles((theme) => ({
   
   export default function SignUp() {
     const classes = useStyles();
-    // Hook for authentication
+    const [redirect, setRedirect] = useState(false);
 
     // From react-hook-form library
     const { handleSubmit, control, setValue } = useForm({resolver: yupResolver(validationSchema)});
 
     const onSubmit = data => {
-      alert(JSON.stringify(data));    // Remove this later
       // Call method that sends data to the BE
       registerUser(data);       // Do some error handling -- What if the response code isn't 200
-
+      setRedirect(true);
     };
 
+    if (redirect) {
+      return <Redirect to='/api/user-cal' />
+    }
     
     const [selectedFirstDoseDate, setSelectedFirstDoseDate] = useState(null);
     const [selectedSecondDoseDate, setSelectedSecondDoseDate] = useState(null);
