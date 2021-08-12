@@ -54,10 +54,10 @@ function NavBar() {
             <li className="nav-login-btn">
               {
                 loginButton ? (
-                  <Link to='/centre/login' className="login-btn-link">
+                  <Link to='/api/centre/login' className="login-btn-link">
                     <Button buttonStyle='btn--outline'> Centre Login </Button>
                   </Link>) : (
-                    <Link to='/centre/login' className="login-btn-link" onClick={closeMobileMenu}>
+                    <Link to='/api/centre/login' className="login-btn-link" onClick={closeMobileMenu}>
                       <Button buttonStyle="btn--outline" buttonSize='btn--mobile'> Centre Login </Button>
                     </Link>
                   )
@@ -66,10 +66,10 @@ function NavBar() {
             <li className="nav-login-btn">
               {
                 loginButton ? (
-                  <Link to='/user/login' className="login-btn-link">
+                  <Link to='/api/user/login' className="login-btn-link">
                     <Button buttonStyle='btn--outline'> User Login </Button>
                   </Link>) : (
-                    <Link to='/user/login' className="login-btn-link" onClick={closeMobileMenu}>
+                    <Link to='/api/user/login' className="login-btn-link" onClick={closeMobileMenu}>
                       <Button buttonStyle="btn--outline" buttonSize='btn--mobile'> User Login </Button>
                     </Link>
                   )
