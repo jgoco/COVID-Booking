@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 var dotenv = require('dotenv');
 
 /* ----------- IMPORT ROUTES ----------- */ 
-//var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/index');
 var recRouter = require('./routes/rec-center');
 var userAuthenicationRoute = require('./routes/userAuthenticationRoute');
 var userRouter = require('./routes/user');
@@ -19,26 +19,23 @@ dotenv.config();
 
 var app = express();
 
-/* ----------- DATABASE CONNECTION ----------- */
-mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then((result) => console.log('[SUCCESS] Connected to MongoDB Atlas.'))
-    .catch((error) => console.log(error));
-
 /* ----------- EXPRESS MIDDLEWARE ----------- */ 
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// check route
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + 'build' + 'index.html'));
-})
+
+/* ----------- DATABASE CONNECTION ----------- */
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then((result) => console.log('[SUCCESS] Connected to MongoDB Atlas.'))
+    .catch((error) => console.log(error));
+
 
 /* ----------- ROUTES ----------- */ 
-//app.use('/', indexRouter);
+app.use('/', indexRouter);
 app.use('/rec-center', recRouter);
 app.use('/user', userAuthenicationRoute);
 app.use('/user-cal', userRouter)
