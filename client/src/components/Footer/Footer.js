@@ -73,10 +73,10 @@ function Footer() {
           <div className='footer-logo'>
             <Link to='/' className='social-logo'>
               <EventIcon className='navbar-icon' />
-              COVID BOOKING
+              RECCENTER BOOKING
             </Link>
           </div>
-          <small className='website-rights'>COVID BOOKING © 2020</small>
+          <small className='website-rights'>RECCENTER BOOKING © 2020</small>
           <div className='social-icons'>
             <Link
               className='social-icon-link'

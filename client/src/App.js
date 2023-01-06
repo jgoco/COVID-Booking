@@ -12,6 +12,8 @@ import UserLoginPage from './components/views/Login/UserLoginPage';
 import RecCentreLoginPage from './components/views/Login/RecCentreLoginPage';
 import RegisterPage from './components/views/Register/UserRegisterPage';
 
+// NOTE: for display purposes, moved calendar component to home path, and home component to calendar path
+
 function App() {
 
   const [userLoginStatus, setUserLoginStatus] = useState(true);
