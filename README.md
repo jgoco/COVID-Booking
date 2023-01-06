@@ -1,5 +1,7 @@
 # RecCenter Booking Application
 
+To access the web application, click [here](https://reccenter-booking.onrender.com)
+
 ## Context
 
 ### What is the RecCenter Booking application?
@@ -10,7 +12,7 @@ administration to create and organize classes that their patrons can then sign u
 
 This application can be extended in the future by implementing screening capabilities for recreational center classes.
 Recreational centers will be able to use this screening feature to ensure that patrons attending their classes meet any
-prerequisites (e.g. whether they're COVID-vaccinated, have a prerequisite course, are of a certain profession, etc) by
+prerequisites (e.g. whether they're COVID-vaccinated, have a prerequisite course, are of a certain profession, etc.) by
 only allowing the patron to book if their profile meets certain criteria.
 
 Beyond this, this application can be scaled to other use cases where companies require clients to book appointments
@@ -114,7 +116,7 @@ hospital-workers, teachers, etc.).
 
 ### Unit 5: Release Engineering
 
-- Application deployed using Heroku
+- Application deployed originally using Heroku, but moved to Render
 - Enabled automatic deployment of production branch
 
 ## Above and Beyond Functionality

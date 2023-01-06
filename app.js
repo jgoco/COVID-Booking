@@ -28,8 +28,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/client/build')));
 
-console.log("past middle");
-
 
 /* ----------- DATABASE CONNECTION ----------- */
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -43,7 +41,7 @@ app.use('/api/user', userAuthenicationRoute);
 app.use('/api/user-cal', userRouter)
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/client/build/index.html'));
+  res.sendFile(path.join(__dirname, '/client/public/index.html'));
 });
 
 
